@@ -1,0 +1,62 @@
+How do you address the issue of different data schedules? What are your suggestions to match data
+coming from each machine in different times and how to improve data usability within the test?
+Consider that you can store, manage, transfer the data easily between systems. For the sake of this
+assignment, you have any possible resource (informatics) available to you.
+
+(a) Devise a program/script that will match the datasets, with the time differences, and commit to
+the repo. Text based answers are also considered.
+
+• NGS data will be generated in 24 sample batches every Wednesday
+• PCR data will be generated in 96 sample batches every last Friday of each month
+
+ANSWER:
+
+Both NGS and PCR data will be move into a unqiue sample directory based on sample ID:
+
+Part of the NGS sequencing batch moves, for each sample, a new directory will be created based on sample name. 
+1) Extract sample name from bamfiles using samtools
+2) Create directory based on sample names
+3) Move files to sample specific directories
+4) PCR : grab first row of first column to get speciem ID
+4) Move files to sample specific directories
+5) All files name will be timestamped
+
+
+'''
+def get_bam_file():
+    my_file = []
+    os.chdir("/aplnetwork/bamfiles")
+    files = glob.glob('*.bam')
+    for file in files:
+        my_file.append(file)
+    return my_file
+
+def create_sample_dir():
+
+    folder = 'C:/aplnetwork/bamfiles/'
+
+    for file_path in folder:
+        new_dir_path = '/aplnetwork/batch_results/'
+        id = samtools view -H test.bam | grep '^@RG' | sed "s/.*SM:\([^\t]*\).*/\1/g" | uniq
+        new_dir = new_dir_path + id 
+
+        try:
+            os.mkdir(os.path.join(folder, new_dir))
+        except WindowsError:
+            logger.info('target sample directory already exist')
+            pass
+
+def move_ngs_file():
+    all_file=get_bam_file()
+    for file in all_file:
+        id = samtools view -H test.bam | grep '^@RG' | sed "s/.*SM:\([^\t]*\).*/\1/g" | uniq
+        shutil.move(f"/aplnetwork/pcrresults/{id}"+file, "/aplnetwork/newdir/"+file)
+        
+def move_pcr_fil():
+        all_file=get_bam_file()
+        for file in all_file:
+            with open('csv_file.csv','r') as f:
+                pcr_csv = f.readlines()
+                id = pcr_csv[0].split(',')[0]
+                shutil.move(f"/aplnetwork/pcrresults/{id}"+file, "/aplnetwork/newdir/"+file)
+'''
