@@ -1,0 +1,14 @@
+Question 6
+
+NGS and PCR data need to be matched properly and one result will validate the other and vice-versa.
+Considering this, how do you
+
+(a) avoid matching errors?
+- Match only on sample IDs rather batch times/files
+- Timestamp files to ensure cooresponding times make sense with the files 
+
+(b) provide feedback to the user regarding successful and unsuccessful matches?
+
+- Files will not be moved to sample directories unless the ID matches
+- LOG ERROR for files will be displayed when a directory does not exist for ID based on the NGS data 
+- Create a file log of all sample files that are created in each batch to reference for directory creation
