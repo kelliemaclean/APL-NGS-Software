@@ -1,0 +1,20 @@
+Question 7
+
+After data matching, a report must be generated, which has to be accessible from anywhere in the
+laboratory. Also, data needs to be moved to a long term storage. Based on this
+
+(a) How do you deliver your reports?
+    1) Create a secure database for reports that can be queried based on patient sample or dates 
+    2) Develop a standardize template for reports, including results, QC metrics, etc.  
+
+(b) How do you know if the analysis passed QA/QC and then can be moved to the storage?
+    - For analysis QA/QC passed, write script to determine if analysis passes QC mertics. 
+        If analyisis passes, create a flag in sample analysis directory "QC.PASSED".
+        If script returns a failure, create flag in sample analysis direectory "QC.FAILED"
+
+(c) Long term storage is in another network hub (not in the lab intranet) which is also protected by
+the same firewall. What would be your preferred method to transfer data? Would be manual or
+automated transfer?
+     - I would create a program that can manually be run to move a analysis directory into long term storage
+     It would take the directory path that neeeds to be filled and would ensure that the QC.PASSED flag is
+     present in the directory before moving to long term storage. 
