@@ -1,0 +1,11 @@
+Question 8
+One day, the clinically validated PCR machine breaks and now the data will be generated in another
+room in the same lab.
+(a) Do you need to re-validate your software?
+    Yes. 
+(b) If so, what would be best approach?
+    Have baseline testing data that can be re-run though entire workflow to see if the same results
+    are generated with new machine. 
+(c) You need to transfer your software to the new desktop machine, or not?
+    No, the software should be kept in a directory accessible to any machine connected to the network. 
+    Software should be run from a maintained software location. 
